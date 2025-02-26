@@ -1,16 +1,13 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Allerta_Stencil} from "next/font/google";
 import "./globals.css";
 import NavBar from "./component/header/NavBar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+
+const allertaStencil = Allerta_Stencil({
+  weight: "400", // الخط ده عنده وزن واحد بس
+  subsets: ["latin"], 
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Create Next App",
@@ -21,7 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable}   antialiased`}
+        className={`${allertaStencil.variable}  antialiased`}
       >
         <NavBar />
         {children}

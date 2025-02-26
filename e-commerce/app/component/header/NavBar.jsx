@@ -10,7 +10,7 @@ const NavBar = () => {
     { name: "Cart", href: "/cart" },
   ];
   return (
-    <header className="bg-white dark:bg-black dark:shadow-colorOne shadow-sm dark:shadow-sm">
+    <header className="bg-white dark:bg-black dark:shadow-color1 shadow-sm dark:shadow-sm">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
@@ -30,10 +30,10 @@ const NavBar = () => {
                 {links.map((link) => (
                   <Link
                     className="relative font-medium text-gray-700 transition-colors duration-200
-                        hover:text-colorOne dark:text-gray-200 dark:hover:text-colorOne
+                        hover:text-color1 dark:text-gray-200 dark:hover:text-color1
                         after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 
-                        after:bg-colorOne after:transition-all after:duration-300
-                        hover:after:w-full dark:after:bg-colorOne"
+                        after:bg-color1 after:transition-all after:duration-300
+                        hover:after:w-full dark:after:bg-color1"
                     href={link.href}
                     key={link.name} // Added key prop for React list rendering
                   >
@@ -47,7 +47,7 @@ const NavBar = () => {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               <a
-                className="rounded-md bg-colorOne px-5 py-2.5 text-sm font-medium text-[#ffffff] shadow-sm dark:hover:bg-[#E7F0DC] dark:hover:text-colorOne"
+                className="rounded-md bg-color1 px-5 py-2.5 text-sm font-medium text-[#ffffff] shadow-sm dark:hover:bg-[#E7F0DC] dark:hover:text-color1"
                 href="Login"
               >
                 Login
@@ -55,7 +55,7 @@ const NavBar = () => {
 
               <div className="hidden sm:flex">
                 <a
-                  className="rounded-md bg-colorTwo px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-[#ffffff] dark:hover:text-white/75"
+                  className="rounded-md bg-color2 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-[#ffffff] dark:hover:text-white/75"
                   href="Register"
                 >
                   Register
