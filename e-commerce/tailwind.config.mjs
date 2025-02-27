@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xxs': '280px',
+        'xs': '380px',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

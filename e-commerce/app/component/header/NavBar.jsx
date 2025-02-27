@@ -1,16 +1,20 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const NavBar = () => {
   const theem = "dark";
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
   const links = [
     { name: "Home", href: "/" },
     { name: "products", href: "/products" },
     { name: "Cart", href: "/cart" },
   ];
+
   return (
-    <header className="bg-white dark:bg-black dark:shadow-color1 shadow-sm dark:shadow-sm">
+    <header className="relative bg-[#E7F0DC] dark:bg-[#1a1a1a] shadow-md">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
@@ -26,16 +30,16 @@ const NavBar = () => {
 
           <div className="hidden md:block">
             <nav aria-label="Global">
-              <ul className="flex items-center gap-6 text-sm">
+              <ul className="flex items-center gap-8 text-sm">
                 {links.map((link) => (
                   <Link
-                    className="relative font-medium text-gray-700 transition-colors duration-200
-                        hover:text-color1 dark:text-gray-200 dark:hover:text-color1
+                    className="relative font-medium text-[#597445] transition-colors duration-300
+                        hover:text-[#2c3a21] dark:text-[#E7F0DC] dark:hover:text-white
                         after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 
-                        after:bg-color1 after:transition-all after:duration-300
-                        hover:after:w-full dark:after:bg-color1"
+                        after:bg-[#597445] after:transition-all after:duration-300
+                        hover:after:w-full dark:after:bg-[#E7F0DC]"
                     href={link.href}
-                    key={link.name} // Added key prop for React list rendering
+                    key={link.name}
                   >
                     {link.name}
                   </Link>
@@ -47,7 +51,8 @@ const NavBar = () => {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               <a
-                className="rounded-md bg-color1 px-5 py-2.5 text-sm font-medium text-[#ffffff] shadow-sm dark:hover:bg-[#E7F0DC] dark:hover:text-color1"
+                className="rounded-md bg-[#597445] px-5 py-2.5 text-sm font-medium text-[#E7F0DC] 
+                shadow-sm hover:bg-[#2c3a21] transition-colors duration-300"
                 href="Login"
               >
                 Login
@@ -55,7 +60,9 @@ const NavBar = () => {
 
               <div className="hidden sm:flex">
                 <a
-                  className="rounded-md bg-color2 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-[#ffffff] dark:hover:text-white/75"
+                  className="rounded-md border-2 border-[#597445] bg-transparent px-5 py-2.5 
+                  text-sm font-medium text-[#597445] hover:bg-[#597445] hover:text-[#E7F0DC] 
+                  transition-colors duration-300"
                   href="Register"
                 >
                   Register
@@ -64,7 +71,11 @@ const NavBar = () => {
             </div>
 
             <div className="block md:hidden">
-              <button className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="rounded-md p-2 text-[#597445] hover:bg-[#597445] hover:text-[#E7F0DC] 
+                transition-colors duration-300"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="size-5"
@@ -83,6 +94,46 @@ const NavBar = () => {
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            {/* Mobile Menu */}
+            <div className="absolute top-16 left-0 right-0 z-50 bg-[#E7F0DC] dark:bg-[#1a1a1a] 
+            shadow-lg border-t border-[#597445]/20">
+              <nav className="container mx-auto px-4">
+                <div className="flex flex-col space-y-2 py-4">
+                  {links.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      className="text-[#597445] dark:text-[#E7F0DC] hover:bg-[#597445] 
+                      hover:text-[#E7F0DC] dark:hover:bg-[#E7F0DC] dark:hover:text-[#597445] 
+                      px-4 py-3 rounded-md transition-colors duration-300 font-medium"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                  <a
+                    className="bg-[#597445] text-[#E7F0DC] hover:bg-[#2c3a21] 
+                    px-4 py-3 rounded-md text-center transition-colors duration-300 font-medium"
+                    href="Register"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Register
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </>
+        )}
       </div>
     </header>
   );
