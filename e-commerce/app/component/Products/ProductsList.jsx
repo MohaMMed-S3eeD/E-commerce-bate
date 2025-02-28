@@ -4,63 +4,50 @@ import CardList from "./CardList";
 
 const ProductsList = ({ Data }) => {
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        type: "spring",
-        duration: 1
-      }
-    }
-  };
+  const isInView = useInView(ref, { 
+    once: false, 
+    amount: 0.1,
+    margin: "0px 0px -100px 0px"
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
+      transition: { 
+        staggerChildren: 0.05,
+        duration: 0.3
+      }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 10 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: {
         type: "spring",
-        bounce: 0.4,
-        duration: 0.8
+        bounce: 0.3,
+        duration: 0.4
       }
     }
   };
 
   return (
-    <section className=" py-12">
-      <motion.div
-        variants={titleVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="text-center mb-12"
-      >
+    <section className="py-12">
+      {/* Static header without animations */}
+      <div className="text-center mb-12">
         <h2 className="text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
           Featured Products
         </h2>
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: "100px" }}
-          className="h-1 bg-[#597445] mx-auto"
-          transition={{ delay: 0.5, duration: 0.8 }}
-        />
+        <div className="h-1 bg-[#597445] mx-auto w-[100px]" />
         <p className="text-[#E7F0DC]/80 mt-4 max-w-2xl mx-auto px-4">
           Discover our handpicked selection of premium products just for you
         </p>
-      </motion.div>
+      </div>
 
+      {/* Animated products grid */}
       <motion.div 
         ref={ref}
         variants={containerVariants}

@@ -1,9 +1,13 @@
+
 import Image from "next/image";
 import React from "react";
+
 import Magnet from "../(components)/Magnet/Magnet";
 import CardSkeleton from "./CardSkeleton";
-
+import { useRouter } from "next/navigation";
 const CardList = ({ product, isLoading }) => {
+  const router = useRouter(); // Add router hook
+
   if (isLoading) {
     return <CardSkeleton />;
   }
@@ -11,13 +15,15 @@ const CardList = ({ product, isLoading }) => {
   if (!product || !product.img?.url) {
     return null;
   }
-
+  const handlClick = (documentId) => {
+    router.push(`/products/${documentId}`);
+  };
   return (
     <div className="bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-color1 max-w-[300px] hover:-translate-y-1 group/card">
       <div className="relative h-[150px] sm:h-[200px] overflow-hidden group">
         <Image
           src={product?.img?.url}
-          alt={product.name}
+          alt={"product"}
           width={300}
           height={200}
           className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
@@ -56,6 +62,31 @@ const CardList = ({ product, isLoading }) => {
               hover:shadow-lg shadow-[#597445]/50"
             >
               Add to Cart
+            </button>
+          </Magnet>
+          <Magnet
+            padding={10}
+            disabled={false}
+            magnetStrength={1.5}
+            title="والنبي ل تجيب جنيه"
+            className="w-full"
+          >
+            <button
+              className="bg-[#597445] hover:bg-[#597445]/90 text-[#E7F0DC] 
+              w-full
+              px-4 py-1.5 sm:py-2
+              rounded-md 
+              transition-all duration-300 
+              text-[10px] sm:text-sm md:text-base
+              font-medium
+              flex items-center justify-center
+              transform hover:scale-[1.02] active:scale-[0.98] 
+              hover:shadow-lg shadow-[#597445]/50"
+              onClick={() => {
+                handlClick(product.documentId);
+              }}
+            >
+              details
             </button>
           </Magnet>
         </div>
