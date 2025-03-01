@@ -5,10 +5,12 @@ import ProductsList from "./ProductsList";
 
 const ProductsSec = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const getLastProducts_ = () => {
     productApi.getLatestProducts().then((res) => {
       console.log(res.data.data);
       setProducts(res.data.data);
+      setLoading(false);
     });
   };
   useEffect(() => {
@@ -16,8 +18,7 @@ const ProductsSec = () => {
   }, []);
   return (
     <div className="h-screen ">
-      <ProductsList Data={products} />
-       
+      <ProductsList Data={products} loading={loading} />
     </div>
   );
 };

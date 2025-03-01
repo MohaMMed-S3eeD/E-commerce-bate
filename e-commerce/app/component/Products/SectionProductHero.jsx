@@ -1,22 +1,20 @@
 "use client";
 import React from "react";
-// import ProductsSec from "../component/Products/ProductsSec";
+import ProductsSec from "./ProductsSec";
 import dynamic from "next/dynamic";
-import Loader from "../component/Loader";
+import Loader from "../Loader";
 
-const page = () => {
-  const DynamicComponent = dynamic(
-    () => import("../component/Products/ProductsSec"),
-    {
-      loading: () => <div className="flex justify-center items-center ">
-        <Loader/>
-      </div>,
-    }
-  );
+const SectionProductHero = () => {
+    const DynamicComponent = dynamic(
+        () => import("./ProductsSec"),
+        {
+          loading: () => <Loader />,
+        }
+      );
   return (
     <div>
       {/* Static header without animations */}
-      <div className="text-center my-12">
+      <div className="text-center mb-12">
         <h2 className="text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
           Featured Products
         </h2>
@@ -25,10 +23,9 @@ const page = () => {
           Discover our handpicked selection of premium products just for you
         </p>
       </div>
-
       <DynamicComponent />
     </div>
   );
 };
 
-export default page;
+export default SectionProductHero;

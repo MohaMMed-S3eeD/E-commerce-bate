@@ -44,7 +44,7 @@ const Hero = () => {
 
             <div className="flex flex-wrap justify-center gap-6 md:justify-start">
               <Magnet
-                padding={70}
+                padding={25}
                 disabled={false}
                 magnetStrength={1}
                 title="والنبي ل تجيب جنيه"

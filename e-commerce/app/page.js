@@ -1,11 +1,12 @@
 import Hero from "./component/Hero/Hero";
-import ProductsSec from "./component/Products/ProductsSec";
+import SectionProductHero from "./component/Products/SectionProductHero";
 
 export default function Home() {
+
   return (
     <div className="">
       <Hero />
-      <ProductsSec />
+      <SectionProductHero />
     </div>
   );
 }
