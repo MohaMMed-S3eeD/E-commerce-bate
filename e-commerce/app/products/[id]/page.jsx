@@ -3,8 +3,8 @@ import dynamic from "next/dynamic";
 import productApi from "../../(utils)/ProductApis";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import Loader from "@/app/component/Loader";
-import ProductSkeleton from "@/app/component/Products/ProductSkeleton";
+import Loader from "../../component/Loader";
+import ProductSkeleton from "../../component/Products/ProductSkeleton";
 const page = () => {
   const { id } = useParams();
   console.log(productApi.getProductByID(id));
