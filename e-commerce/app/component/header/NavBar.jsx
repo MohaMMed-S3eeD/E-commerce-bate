@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-
-const NavBar = () => {
+import React, { use, useState } from "react";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+const NavBar  = () => {
+  const {user} = useUser();
   const theem = "dark";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -13,7 +14,7 @@ const NavBar = () => {
     { name: "Cart", href: "/cart" },
   ];
 
-  return (
+  return user && (
     <header className="relative bg-[#E7F0DC] dark:bg-[#1a1a1a] shadow-md">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
@@ -50,24 +51,27 @@ const NavBar = () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <a
-                className="rounded-md bg-[#597445] px-5 py-2.5 text-sm font-medium text-[#E7F0DC] 
-                shadow-sm hover:bg-[#2c3a21] transition-colors duration-300"
-                href="Login"
-              >
-                Login
-              </a>
+              <SignedOut>
+                <SignInButton>
+                  <button className="rounded-md bg-[#597445] px-5 py-2.5 text-sm font-medium text-[#E7F0DC] 
+                    shadow-sm hover:bg-[#2c3a21] transition-colors duration-300">
+                    Login
+                  </button>
+                </SignInButton>
 
-              <div className="hidden sm:flex">
-                <a
-                  className="rounded-md border-2 border-[#597445] bg-transparent px-5 py-2.5 
-                  text-sm font-medium text-[#597445] hover:bg-[#597445] hover:text-[#E7F0DC] 
-                  transition-colors duration-300"
-                  href="Register"
-                >
-                  Register
-                </a>
-              </div>
+                <div className="hidden sm:flex">
+                  <SignUpButton>
+                    <button className="rounded-md border-2 border-[#597445] bg-transparent px-5 py-2.5 
+                      text-sm font-medium text-[#597445] hover:bg-[#597445] hover:text-[#E7F0DC] 
+                      transition-colors duration-300">
+                      Register
+                    </button>
+                  </SignUpButton>
+                </div>
+              </SignedOut>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/"/>
+              </SignedIn>
             </div>
 
             <div className="block md:hidden">
@@ -121,14 +125,17 @@ const NavBar = () => {
                       {link.name}
                     </Link>
                   ))}
-                  <a
-                    className="bg-[#597445] text-[#E7F0DC] hover:bg-[#2c3a21] 
-                    px-4 py-3 rounded-md text-center transition-colors duration-300 font-medium"
-                    href="Register"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Register
-                  </a>
+                  <SignedOut>
+                    <SignUpButton>
+                      <button
+                        className="bg-[#597445] text-[#E7F0DC] hover:bg-[#2c3a21] 
+                        px-4 py-3 rounded-md text-center transition-colors duration-300 font-medium w-full"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Register
+                      </button>
+                    </SignUpButton>
+                  </SignedOut>
                 </div>
               </nav>
             </div>
