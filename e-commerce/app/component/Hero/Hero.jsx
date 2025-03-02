@@ -30,7 +30,7 @@ const Hero = () => {
               Premium Quality
               <span className="relative mt-2 block">
                 <span className="relative animate-gradient bg-gradient-to-r from-[#597445] via-[#7c9768] to-[#597445] bg-[200%_auto] bg-clip-text text-transparent">
-                  Natural Products
+                  Natural Products 
                 </span>
                 <span className="absolute -bottom-2 left-0 h-1.5 w-1/3 animate-pulse bg-gradient-to-r from-[#597445] to-transparent"></span>
               </span>
