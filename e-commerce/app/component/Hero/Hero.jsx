@@ -47,7 +47,7 @@ const Hero = () => {
                 padding={25}
                 disabled={false}
                 magnetStrength={1}
-                title="والنبي ل تجيب جنيه"
+                title="والنبي ل تجيب جنيه" 
               >
                 <a
                   href="#"
