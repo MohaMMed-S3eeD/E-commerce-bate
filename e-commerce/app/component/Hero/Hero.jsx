@@ -16,7 +16,7 @@ const Hero = () => {
                 <img
                   src="https://images.unsplash.com/photo-1731690415686-e68f78e2b5bd?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   className="relative z-10 rounded-xl object-cover transition-all duration-700 will-change-transform group-hover:scale-[1.03] group-hover:shadow-[0_20px_40px_-15px_rgba(89,116,69,0.35)]"
-                  alt="Premium Natural Product"
+                  alt="Premium Natural Product 1"
                 />
                 <div className="absolute -bottom-2 -right-2 h-full w-full rounded-2xl border border-[#597445]/20 bg-gradient-to-tr from-[#E7F0DC]/20 to-transparent transition-all duration-700 group-hover:-bottom-3 group-hover:-right-3"></div>
                 <div className="absolute -bottom-1 -right-1 h-full w-full rounded-2xl border border-[#597445]/10 bg-gradient-to-tr from-[#E7F0DC]/10 to-transparent"></div>
