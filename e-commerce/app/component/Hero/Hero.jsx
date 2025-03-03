@@ -39,7 +39,7 @@ const Hero = () => {
             <p className="mx-auto max-w-lg text-lg leading-relaxed text-zinc-600 md:mx-0">
               Discover our handpicked collection of eco-friendly products that
               combine elegance with sustainability. Each item tells a story of
-              quality and care.
+              quality and care. 
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 md:justify-start">
