@@ -1,14 +1,14 @@
 import { Allerta_Stencil } from "next/font/google";
 import "./globals.css";
 import NavBar from "./component/header/NavBar";
-// import {
-//   ClerkProvider,
-//   SignInButton,
-//   SignUpButton,
-//   SignedIn,
-//   SignedOut,
-//   UserButton,
-// } from '@clerk/nextjs'
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 
 const allertaStencil = Allerta_Stencil({
   weight: "400", // الخط ده عنده وزن واحد بس
@@ -23,24 +23,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    // <ClerkProvider>
-
-
+    <ClerkProvider>
       <html lang="en">
         <body
           className={`${allertaStencil.variable}  antialiased`}
         >
           <NavBar />
-          {/* <SignedOut>
+          <SignedOut>
             <SignInButton />
             <SignUpButton />
           </SignedOut>
           <SignedIn>
             <UserButton />
-          </SignedIn> */}
+          </SignedIn>
           {children}
         </body>
       </html>
-    // </ClerkProvider>
+    </ClerkProvider>
   );
 }
