@@ -30,3 +30,150 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-pattern {
+  background-image: linear-gradient(45deg, #597445 25%, transparent 25%),
+    linear-gradient(-45deg, #597445 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #597445 75%),
+    linear-gradient(-45deg, transparent 75%, #597445 75%);
+  background-size: 20px 20px;
+  animation: patternMove 20s linear infinite;
+}
+
+.bg-pattern-light {
+  background-image: linear-gradient(45deg, #E7F0DC 25%, transparent 25%),
+    linear-gradient(-45deg, #E7F0DC 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #E7F0DC 75%),
+    linear-gradient(-45deg, transparent 75%, #E7F0DC 75%);
+  background-size: 30px 30px;
+  animation: patternMove 30s linear infinite;
+}
+
+@keyframes patternMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+.floating-shape {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: #E7F0DC;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: float 20s infinite;
+}
+
+.delay-300 {
+  animation-delay: -10s;
+}
+
+.delay-700 {
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(100px, 100px) scale(1.2);
+  }
+  50% {
+    transform: translate(200px, -100px) scale(0.8);
+  }
+  75% {
+    transform: translate(-100px, 200px) scale(1.1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-shimmer {
+  background-image: linear-gradient(
+    270deg,
+    #597445 0%,
+    #6c8957 30%,
+    #597445 60%,
+    #597445 100%
+  );
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+@keyframes float-leaf {
+  0%, 100% { transform: rotate(0deg) translate(0, 0); }
+  25% { transform: rotate(5deg) translate(20px, -20px); }
+  50% { transform: rotate(-5deg) translate(-20px, 20px); }
+  75% { transform: rotate(8deg) translate(10px, 10px); }
+}
+
+.leaf-1, .leaf-2, .leaf-3 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: #597445;
+  opacity: 0.05;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+}
+
+.leaf-1 {
+  top: 10%;
+  left: 10%;
+  animation: float-leaf 15s ease-in-out infinite;
+}
+
+.leaf-2 {
+  top: 60%;
+  right: 15%;
+  width: 400px;
+  height: 400px;
+  animation: float-leaf 18s ease-in-out infinite reverse;
+}
+
+.leaf-3 {
+  bottom: 5%;
+  left: 30%;
+  width: 200px;
+  height: 200px;
+  animation: float-leaf 20s ease-in-out infinite;
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
