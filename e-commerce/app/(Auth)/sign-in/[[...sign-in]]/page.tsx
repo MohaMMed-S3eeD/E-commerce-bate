@@ -7,7 +7,7 @@ export default function Page() {
   const router = useRouter()
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center relative bg-[#E7F0DC]/30">
+    <div className="min-h-screen w-full flex items-center justify-center relative bg-green-950">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="leaf-1"></div>

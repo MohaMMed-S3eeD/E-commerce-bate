@@ -8,6 +8,7 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from '@clerk/nextjs'
 
 const allertaStencil = Allerta_Stencil({
@@ -29,13 +30,13 @@ export default function RootLayout({ children }) {
           className={`${allertaStencil.variable}  antialiased`}
         >
           <NavBar />
-          <SignedOut>
+          {/* <SignedOut>
             <SignInButton />
             <SignUpButton />
           </SignedOut>
           <SignedIn>
             <UserButton />
-          </SignedIn>
+          </SignedIn> */}
           {children}
         </body>
       </html>

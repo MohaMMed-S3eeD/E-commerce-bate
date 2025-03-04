@@ -1,10 +1,11 @@
 "use client";
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React, { use, useState } from "react";
-// import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 const NavBar  = () => {
-  // const {user} = useUser();
+  const {user, isLoaded} = useUser();
   const theem = "dark";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -14,7 +15,12 @@ const NavBar  = () => {
     { name: "Cart", href: "/cart" },
   ];
 
-  return  (
+  // Wait for user data to load before rendering
+  if (!isLoaded) {
+    return null;
+  }
+
+  return user && (
     <header className="relative bg-[#E7F0DC] dark:bg-[#1a1a1a] shadow-md">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
@@ -50,7 +56,7 @@ const NavBar  = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* <div className="sm:flex sm:gap-4">
+            <div className="sm:flex sm:gap-4">
               <SignedOut>
                 <SignInButton>
                   <button className="rounded-md bg-[#597445] px-5 py-2.5 text-sm font-medium text-[#E7F0DC] 
@@ -72,7 +78,7 @@ const NavBar  = () => {
               <SignedIn>
                 <UserButton afterSignOutUrl="/"/>
               </SignedIn>
-            </div> */}
+            </div>
 
             <div className="block md:hidden">
               <button 
