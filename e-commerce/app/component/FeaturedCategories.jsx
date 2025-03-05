@@ -16,6 +16,43 @@ const FeaturedCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Default Other Plants placeholder category
+  const otherPlantsCategory = {
+    name: "Other Plants",
+    description: "Explore our collection of other unique plants",
+    image: "https://images.unsplash.com/photo-1545241047-6083a3684587",
+    slug: "other-plants",
+    products: []
+  };
+
+  // Array of alternative descriptions for duplicate categories
+  const otherPlantVariants = [
+    {
+      name: "Tropical Plants",
+      description: "Exotic plants from tropical regions",
+      image: "https://images.unsplash.com/photo-1584589167171-541ce45f1eea?q=80&w=1000",
+      slug: "tropical-plants"
+    },
+    {
+      name: "Flowering Plants",
+      description: "Beautiful blooming plants for your space",
+      image: "https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?q=80&w=1000",
+      slug: "flowering-plants"
+    },
+    {
+      name: "Rare Species",
+      description: "Unique and hard-to-find plant varieties",
+      image: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=80&w=1000",
+      slug: "rare-species"
+    },
+    {
+      name: "Seasonal Plants",
+      description: "Perfect plants for this season",
+      image: "https://images.unsplash.com/photo-1508022713622-df2d8fb7b4cd?q=80&w=1000",
+      slug: "seasonal-plants"
+    }
+  ];
+
   const getCategoriesData = () => {
     productApi.getLatestProducts().then((res) => {
       console.log("Categories data:", res.data.data);
@@ -47,44 +84,66 @@ const FeaturedCategories = () => {
       }, {});
       
       // Convert the object to an array
-      const categoriesArray = Object.values(productsByCategory);
+      let categoriesArray = Object.values(productsByCategory);
+      
+      // If we have fewer than 4 categories, add duplicates of "Other Plants" with different names
+      if (categoriesArray.length < 4) {
+        const otherPlantsIndex = categoriesArray.findIndex(cat => cat.name === "Other Plants");
+        
+        // Create a base "Other Plants" category if it doesn't exist
+        let otherPlants = otherPlantsIndex >= 0 
+          ? categoriesArray[otherPlantsIndex] 
+          : { 
+              ...otherPlantsCategory, 
+              id: categoriesArray.length + 1,
+              products: [] 
+            };
+            
+        // Add duplicates with different names until we have 4 categories
+        let variantIndex = 0;
+        while (categoriesArray.length < 4) {
+          const variant = otherPlantVariants[variantIndex % otherPlantVariants.length];
+          
+          categoriesArray.push({
+            id: categoriesArray.length + 1,
+            name: variant.name,
+            description: variant.description,
+            image: variant.image,
+            slug: variant.slug,
+            products: [...otherPlants.products] // Share the same products
+          });
+          
+          variantIndex++;
+        }
+      }
       
       setCategories(categoriesArray.slice(0, 4)); // Limit to first 4 categories
       setLoading(false);
     }).catch(error => {
       console.error("Error fetching categories:", error);
       setLoading(false);
-      // Fallback to default categories if API fails
-      setCategories([
+      
+      // Create fallback categories with the default and variants
+      const fallbackCategories = [
         {
           id: 1,
           name: "Indoor Plants",
           description: "Perfect for home and office spaces",
           image: "https://images.unsplash.com/photo-1545241047-6083a3684587?q=80&w=1000",
           slug: "indoor-plants",
+          products: []
         },
-        {
-          id: 2,
-          name: "Outdoor Plants",
-          description: "Beautify your garden and landscape",
-          image: "https://images.unsplash.com/photo-1525498128493-380d1990a112?q=80&w=1000",
-          slug: "outdoor-plants",
-        },
-        {
-          id: 3,
-          name: "Succulents",
-          description: "Low maintenance, high beauty",
-          image: "https://images.unsplash.com/photo-1446071103084-c257b5f70672?q=80&w=1000",
-          slug: "succulents",
-        },
-        {
-          id: 4,
-          name: "Herbs & Vegetables",
-          description: "Grow your own food at home",
-          image: "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?q=80&w=1000",
-          slug: "herbs-vegetables",
-        },
-      ]);
+        ...otherPlantVariants.slice(0, 3).map((variant, index) => ({
+          id: index + 2,
+          name: variant.name,
+          description: variant.description,
+          image: variant.image,
+          slug: variant.slug,
+          products: []
+        }))
+      ];
+      
+      setCategories(fallbackCategories);
     });
   };
 
