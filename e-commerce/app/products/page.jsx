@@ -8,16 +8,18 @@ const page = () => {
   const DynamicComponent = dynamic(
     () => import("../component/Products/ProductsSec"),
     {
-      loading: () => <div className="flex justify-center items-center ">
-        <Loader/>
-      </div>,
+      loading: () => (
+        <div className="flex justify-center items-center ">
+          <Loader />
+        </div>
+      ),
     }
   );
   return (
     <div>
       {/* Static header without animations */}
-      <div className="text-center my-12">
-        <h2 className="text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
+      <div className="text-center my-12 mt-20">
+        <h2 className=" text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
           Featured Products
         </h2>
         <div className="h-1 bg-[#597445] mx-auto w-[100px]" />

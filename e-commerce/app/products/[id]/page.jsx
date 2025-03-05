@@ -28,7 +28,7 @@ const page = () => {
     }
   );
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen w-full py-8 bg-[#1E1E1E]">
+    <div className="mt-10 flex flex-col items-center justify-center min-h-screen w-full py-8 bg-[#000000]">
       <div className="text-center mb-12 mt-4">
         <h2 className="text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
           Product Details

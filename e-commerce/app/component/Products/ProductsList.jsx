@@ -46,7 +46,7 @@ const ProductsList = ({ Data, loading }) => {
   };
 
   return (
-    <section className="py-12">
+    <section className="py-12 ">
       <AnimatePresence mode="wait">
         {loading ? (
           <motion.div

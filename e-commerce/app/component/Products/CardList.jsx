@@ -1,14 +1,52 @@
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 
-import Magnet from "../(components)/Magnet/Magnet";
 import { useRouter } from "next/navigation";
+import { CartContext } from "../../(context)/CartContext";
+import { useUser } from "@clerk/nextjs";
 const CardList = ({ product }) => {
+  const { user } = useUser();
   const router = useRouter(); // Add router hook
+  const { cart, setCart } = useContext(CartContext);
+  if (!user) {
+    router.push("/sign-in");
+  }
+  // Check if product is in cart
+  const isInCart = cart.some((item) => item.documentId === product?.documentId);
 
-  // if (isLoading) {
-  //   return <CardSkeleton />;
-  // }
+  const addCart = async () => {
+    try {
+      const response = await fetch(
+        "https://e-commerce-strapi-railway-production.up.railway.app/api/carts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data: {
+              UserName: user?.fullName,
+              EmailUser: user?.primaryEmailAddress.emailAddress,
+              products: [product?.documentId],
+            },
+          }),
+        }
+      );
+
+      const result = await response.json();
+      console.log("Cart added:", result);
+      setCart((oldCart) => [...oldCart, product]);
+      console.log("Cart:", cart);
+    } catch (error) {
+      console.error("Error adding cart:", error);
+    }
+  };
+
+  const removeFromCart = () => {
+    setCart((oldCart) =>
+      oldCart.filter((item) => item.documentId !== product?.documentId)
+    );
+  };
 
   if (!product || !product.img?.url) {
     return null;
@@ -40,40 +78,38 @@ const CardList = ({ product }) => {
           {product.description}
         </p>
         <div className="w-full">
-          <Magnet
-            padding={5}
-            disabled={false}
-            magnetStrength={3}
-            title="والنبي ل تجيب جنيه"
-            className="w-full"
-          >
-            <button
-              className="bg-[#597445] hover:bg-[#597445]/90 text-[#E7F0DC] 
+          <button
+            onClick={() => (isInCart ? removeFromCart() : addCart())}
+            className={`${
+              isInCart
+                ? "bg-[#9B2C2C] hover:bg-[#7C2222] shadow-[#9B2C2C]/50"
+                : "bg-[#3C5A34] hover:bg-[#2D4427] shadow-[#3C5A34]/50"
+            }
+              text-[#E7F0DC] 
               w-full
-              px-4 py-1.5 sm:py-2
+              px-3 py-1 sm:py-2
               rounded-md 
               transition-all duration-300 
-              text-[10px] sm:text-sm md:text-base
-              font-medium
-              flex items-center justify-center
+              text-xs sm:text-sm md:text-base
+              font-semibold
+              flex items-center justify-center gap-2
               transform hover:scale-[1.02] active:scale-[0.98] 
-              hover:shadow-lg shadow-[#597445]/50"
-            >
-              Add to Cart
-            </button>
-          </Magnet>
+              hover:shadow-lg`}
+          >
+            {isInCart ? "🗑️ Remove" : "Add to Cart"}
+          </button>
 
           <button
-            className="bg-[#597445] hover:bg-[#597445]/90 text-[#E7F0DC] 
+            className="bg-[#3C5A34] hover:bg-[#2D4427] text-[#E7F0DC] 
               w-full
-              px-4 py-1.5 sm:py-2
+              px-3 py-1 sm:py-2
               rounded-md 
               transition-all duration-300 
-              text-[10px] sm:text-sm md:text-base
-              font-medium
-              flex items-center justify-center
+              text-xs sm:text-sm md:text-base
+              font-semibold
+              flex items-center justify-center gap-2
               transform hover:scale-[1.02] active:scale-[0.98] 
-              hover:shadow-lg shadow-[#597445]/50 mt-3"
+              hover:shadow-lg shadow-[#3C5A34]/50 mt-2"
             onClick={() => {
               handlClick(product.documentId);
             }}

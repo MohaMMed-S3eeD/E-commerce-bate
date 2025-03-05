@@ -5,17 +5,14 @@ import dynamic from "next/dynamic";
 import Loader from "../Loader";
 
 const SectionProductHero = () => {
-    const DynamicComponent = dynamic(
-        () => import("./ProductsSec"),
-        {
-          loading: () => <Loader />,
-        }
-      );
+  const DynamicComponent = dynamic(() => import("./ProductsSec"), {
+    loading: () => <Loader />,
+  });
   return (
     <div>
       {/* Static header without animations */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
+      <div className="text-center mb-12 ">
+        <h2 className=" text-3xl sm:text-xl md:text-5xl font-bold text-[#E7F0DC] mb-4">
           Featured Products
         </h2>
         <div className="h-1 bg-[#597445] mx-auto w-[100px]" />

@@ -2,153 +2,164 @@
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import React, { use, useState } from "react";
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-const NavBar  = () => {
-  const {user, isLoaded} = useUser();
+import { PiShoppingCartSimpleThin } from "react-icons/pi";
+import React, { use, useContext, useState } from "react";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import { CartContext } from "../../(context)/CartContext";
+
+import { useRouter } from "next/navigation";
+const NavBar = () => {
+  const { user, isLoaded } = useUser();
   const theem = "dark";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+  const router = useRouter();
   const links = [
     { name: "Home", href: "/" },
     { name: "products", href: "/products" },
-    { name: "Cart", href: "/cart" },
   ];
 
   // Wait for user data to load before rendering
   if (!isLoaded) {
     return null;
   }
+  const { cart, setCart } = useContext(CartContext);
+  return (
+    user && (
+      <header className="md:mx-10 xl:mx-10 fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/80 border-b border-gray-800">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <div className="flex-shrink-0 cursor-pointer transition-transform hover:scale-105">
+              <Link href="/" className="flex items-center space-x-2">
+                <Image
+                  src="./Logo1.svg"
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                  className="drop-shadow-glow"
+                />
+                <span className="hidden sm:block text-lg font-bold text-[#E7F0DC]">
+                  Mo - Shop
+                </span>
+              </Link>
+            </div>
 
-  return user && (
-    <header className="relative bg-[#E7F0DC] dark:bg-[#1a1a1a] shadow-md">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <div className="md:flex md:items-center md:gap-12">
-            <a className="block text-teal-600 dark:text-teal-600" href="/">
-              <Image
-                src={`${theem === "dark" ? "./Logo1.svg" : "./Logo2.svg"}`}
-                alt="Logo"
-                width={50}
-                height={50}
-              ></Image>
-            </a>
-          </div>
-
-          <div className="hidden md:block">
-            <nav aria-label="Global">
-              <ul className="flex items-center gap-8 text-sm">
-                {links.map((link) => (
-                  <Link
-                    className="relative font-medium text-[#597445] transition-colors duration-300
-                        hover:text-[#2c3a21] dark:text-[#E7F0DC] dark:hover:text-white
-                        after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 
-                        after:bg-[#597445] after:transition-all after:duration-300
-                        hover:after:w-full dark:after:bg-[#E7F0DC]"
-                    href={link.href}
-                    key={link.name}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </ul>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              {links.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="relative px-2 py-1 text-[#E7F0DC] font-medium tracking-wide
+                    before:content-[''] before:absolute before:-bottom-1 before:left-0 
+                    before:w-0 before:h-0.5 before:rounded-full before:opacity-0 
+                    before:transition-all before:duration-300 before:bg-[#597445]
+                    hover:before:w-full hover:before:opacity-100"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </nav>
-          </div>
 
-          <div className="flex items-center gap-4">
-            <div className="sm:flex sm:gap-4">
+            {/* Right side buttons */}
+            <div className="flex items-center space-x-6">
+              {/* Cart Button */}
+              <button
+                onClick={() => router.push("/Cart")}
+                className="relative p-2 text-[#E7F0DC] hover:text-[#597445] transition-colors"
+              >
+                <PiShoppingCartSimpleThin className="text-2xl" />
+                {cart?.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#597445] text-[#E7F0DC] 
+                    text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center
+                    animate-pulse"
+                  >
+                    {cart?.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Auth Buttons */}
               <SignedOut>
-                <SignInButton>
-                  <button className="rounded-md bg-[#597445] px-5 py-2.5 text-sm font-medium text-[#E7F0DC] 
-                    shadow-sm hover:bg-[#2c3a21] transition-colors duration-300">
-                    Login
-                  </button>
-                </SignInButton>
-
-                <div className="hidden sm:flex">
+                <div className="flex items-center space-x-4">
+                  <SignInButton>
+                    <button className="px-4 py-2 text-sm font-medium text-[#E7F0DC] 
+                      hover:text-[#597445] transition-colors"
+                    >
+                      Login
+                    </button>
+                  </SignInButton>
                   <SignUpButton>
-                    <button className="rounded-md border-2 border-[#597445] bg-transparent px-5 py-2.5 
-                      text-sm font-medium text-[#597445] hover:bg-[#597445] hover:text-[#E7F0DC] 
-                      transition-colors duration-300">
+                    <button className="px-4 py-2 text-sm font-medium bg-[#597445] 
+                      text-[#E7F0DC] rounded-lg hover:bg-[#597445]/80 
+                      transition-all duration-300 shadow-lg shadow-[#597445]/20"
+                    >
                       Register
                     </button>
                   </SignUpButton>
                 </div>
               </SignedOut>
+              
               <SignedIn>
-                <UserButton afterSignOutUrl="/"/>
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: 'w-8 h-8'
+                    }
+                  }}
+                  afterSignOutUrl="/" 
+                />
               </SignedIn>
-            </div>
 
-            <div className="block md:hidden">
-              <button 
+              {/* Mobile Menu Button */}
+              <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="rounded-md p-2 text-[#597445] hover:bg-[#597445] hover:text-[#E7F0DC] 
-                transition-colors duration-300"
+                className="md:hidden p-2 text-[#E7F0DC] hover:text-[#597445] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="size-5"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth="2"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
                 </svg>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <div 
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            
-            {/* Mobile Menu */}
-            <div className="absolute top-16 left-0 right-0 z-50 bg-[#E7F0DC] dark:bg-[#1a1a1a] 
-            shadow-lg border-t border-[#597445]/20">
-              <nav className="container mx-auto px-4">
-                <div className="flex flex-col space-y-2 py-4">
-                  {links.map((link) => (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className="text-[#597445] dark:text-[#E7F0DC] hover:bg-[#597445] 
-                      hover:text-[#E7F0DC] dark:hover:bg-[#E7F0DC] dark:hover:text-[#597445] 
-                      px-4 py-3 rounded-md transition-colors duration-300 font-medium"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                  <SignedOut>
-                    <SignUpButton>
-                      <button
-                        className="bg-[#597445] text-[#E7F0DC] hover:bg-[#2c3a21] 
-                        px-4 py-3 rounded-md text-center transition-colors duration-300 font-medium w-full"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Register
-                      </button>
-                    </SignUpButton>
-                  </SignedOut>
-                </div>
-              </nav>
-            </div>
-          </>
+          <div className="absolute top-16 left-0 right-0 bg-black/95 border-t border-gray-800">
+            <nav className="max-w-7xl mx-auto px-4 py-3">
+              {links.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block py-3 px-4 text-[#E7F0DC] hover:bg-[#597445]/20 
+                    rounded-lg transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
         )}
-      </div>
-    </header>
+      </header>
+    )
   );
 };
 

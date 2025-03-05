@@ -17,7 +17,7 @@ const ProductsSec = () => {
     getLastProducts_();
   }, []);
   return (
-    <div className="h-screen ">
+    <div className="h-screen  ">
       <ProductsList Data={products} loading={loading} />
     </div>
   );
