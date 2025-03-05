@@ -7,13 +7,11 @@ import Loader from "../../component/Loader";
 import ProductSkeleton from "../../component/Products/ProductSkeleton";
 const page = () => {
   const { id } = useParams();
-  console.log(productApi.getProductByID(id));
 
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const getProducts_ = () => {
     productApi.getProductByID(id).then((res) => {
-      console.log(res.data[0]);
       setProduct(res.data[0]);
       setLoading(false);
     });

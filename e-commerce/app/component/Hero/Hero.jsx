@@ -3,7 +3,7 @@ import Magnet from "../(components)/Magnet/Magnet";
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden py-10 sm:py-16 lg:py-24 min-h-screen">
+    <section className="relative overflow-hidden py-10 sm:py-16 lg:py-24 min-h-screen mt-10">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center lg:gap-20">
           {/* Image div - now first on mobile */}
@@ -50,7 +50,7 @@ const Hero = () => {
                 title="والنبي ل تجيب جنيه" 
               >
                 <a
-                  href="#"
+                  href="/products"
                   className="group relative inline-flex items-center overflow-hidden rounded-lg bg-[#597445] px-8 py-4 transition-all duration-300 ease-out hover:bg-[#597445]/90 hover:shadow-lg hover:shadow-[#597445]/20"
                 >
                   <span className="relative flex items-center gap-2 font-medium text-white">

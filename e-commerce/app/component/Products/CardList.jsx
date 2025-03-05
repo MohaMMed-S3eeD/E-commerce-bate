@@ -34,9 +34,7 @@ const CardList = ({ product }) => {
       );
 
       const result = await response.json();
-      console.log("Cart added:", result);
       setCart((oldCart) => [...oldCart, product]);
-      console.log("Cart:", cart);
     } catch (error) {
       console.error("Error adding cart:", error);
     }

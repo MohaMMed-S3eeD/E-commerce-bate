@@ -8,7 +8,6 @@ const ProductsSec = () => {
   const [loading, setLoading] = useState(true);
   const getLastProducts_ = () => {
     productApi.getLatestProducts().then((res) => {
-      console.log(res.data.data);
       setProducts(res.data.data);
       setLoading(false);
     });

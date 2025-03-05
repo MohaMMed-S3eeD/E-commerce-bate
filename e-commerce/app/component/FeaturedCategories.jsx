@@ -55,7 +55,6 @@ const FeaturedCategories = () => {
 
   const getCategoriesData = () => {
     productApi.getLatestProducts().then((res) => {
-      console.log("Categories data:", res.data.data);
       
       // Create categories based on product types
       const productsByCategory = res.data.data.reduce((acc, product) => {
@@ -152,28 +151,28 @@ const FeaturedCategories = () => {
   }, []);
 
   return (
-    <div className="py-20 h-screen " style={{ backgroundColor: themeColors.color3, color: themeColors.color2 }}>
+    <div className="py-10 md:py-16 lg:py-20 min-h-[80vh]" style={{ backgroundColor: themeColors.color3, color: themeColors.color2 }}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 " style={{ color: themeColors.color2 }}>
+        <div className="text-center mb-8 md:mb-12 lg:mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 md:mb-4" style={{ color: themeColors.color2 }}>
             Explore Categories
           </h2>
-          <p className="text-lg opacity-80 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg opacity-80 max-w-2xl mx-auto px-2">
             Discover our wide range of plant categories to bring nature into your space
           </p>
         </div>
 
         {loading ? (
-          <div className="text-center py-12" style={{ color: themeColors.color2 }}>
+          <div className="text-center py-8 md:py-12" style={{ color: themeColors.color2 }}>
             Loading categories...
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {categories.map((category) => (
               <Link key={category.id} href={`/products`}>
                 <div 
                   className="relative overflow-hidden rounded-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer"
-                  style={{ height: "400px", boxShadow: "0 8px 20px rgba(0,0,0,0.4)" }}
+                  style={{ height: "300px", boxShadow: "0 8px 20px rgba(0,0,0,0.4)" }}
                 >
                   <div className="absolute inset-0">
                     <Image 
@@ -185,25 +184,25 @@ const FeaturedCategories = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                    <h3 className="text-2xl font-bold mb-2" style={{ color: themeColors.color2 }}>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 z-10">
+                    <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2" style={{ color: themeColors.color2 }}>
                       {category.name}
                     </h3>
-                    <p className="text-sm opacity-90 mb-4">
+                    <p className="text-xs md:text-sm opacity-90 mb-3 md:mb-4 line-clamp-2">
                       {category.description}
                     </p>
                     <button 
                       className="bg-[#3C5A34] hover:bg-[#2D4427] text-[#E7F0DC]  
-                      px-4 py-2
+                      px-3 py-1.5 md:px-4 md:py-2
                       rounded-md 
                       transition-all duration-300 
-                      text-sm
+                      text-xs md:text-sm
                       font-semibold
                       flex items-center justify-center gap-2
                       w-full
                       transform hover:scale-[1.02] active:scale-[0.98]"
                     >
-                      Browse Collection ({category.products?.length || 0} items)
+                      Browse Collection ({category.products?.length || 0})
                     </button>
                   </div>
                 </div>

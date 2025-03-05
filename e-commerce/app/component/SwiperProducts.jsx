@@ -30,7 +30,6 @@ const SwiperProducts = () => {
 
   const getLastProducts_ = () => {
     productApi.getLatestProducts().then((res) => {
-      console.log("hi start", res.data.data);
       setProducts(res.data.data.slice(0, 6)); // Limit to first 6 products
       setLoading(false);
     });
@@ -71,9 +70,7 @@ const SwiperProducts = () => {
       );
 
       const result = await response.json();
-      console.log("Cart added:", result);
       setCart((oldCart) => [...oldCart, product]);
-      console.log("Cart:", cart);
     } catch (error) {
       console.error("Error adding cart:", error);
     }
@@ -88,12 +85,12 @@ const SwiperProducts = () => {
 
   return (
     <div
-      className="h-screen pt-20 pb-24"
+      className="py-8 md:py-12 lg:py-20"
       style={{ backgroundColor: "black", color: themeColors.color2 }}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         <h2
-          className="text-4xl font-bold mb-12 text-center"
+          className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8 lg:mb-12 text-center"
           style={{ color: themeColors.color2 }}
         >
           Top Plants
@@ -101,7 +98,7 @@ const SwiperProducts = () => {
 
         {loading ? (
           <div
-            className="text-center py-12"
+            className="text-center py-6 md:py-8 lg:py-12"
             style={{ color: themeColors.color2 }}
           >
             Loading products...
@@ -109,8 +106,8 @@ const SwiperProducts = () => {
         ) : (
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={3}
+            spaceBetween={10}
+            slidesPerView={1}
             navigation={{
               nextEl: ".swiper-button-next",
               prevEl: ".swiper-button-prev",
@@ -122,11 +119,14 @@ const SwiperProducts = () => {
             }}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             breakpoints={{
-              640: { slidesPerView: 2 },
-              768: { slidesPerView: 3 },
-              1024: { slidesPerView: 4 },
+              320: { slidesPerView: 1, spaceBetween: 10 },
+              480: { slidesPerView: 1.5, spaceBetween: 15 },
+              640: { slidesPerView: 2, spaceBetween: 15 },
+              768: { slidesPerView: 2.5, spaceBetween: 20 },
+              1024: { slidesPerView: 3.5, spaceBetween: 20 },
+              1280: { slidesPerView: 4, spaceBetween: 30 },
             }}
-            className="pb-20"
+            className="pb-10 md:pb-16 lg:pb-20"
           >
             {products.map((product) => (
               <SwiperSlide key={product.id}>
@@ -135,11 +135,12 @@ const SwiperProducts = () => {
                   style={{
                     backgroundColor: themeColors.color3,
                     boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
-                    height: "470px",
+                    height: "auto",
+                    maxHeight: "400px",
                     border: "1px solid #3A3A3A",
                   }}
                 >
-                  <div className="relative h-[900px] w-full ">
+                  <div className="relative w-full" style={{ height: '150px', maxHeight: '40%' }}>
                     <Image
                       src={product.img.url}
                       alt={product.title}
@@ -151,19 +152,19 @@ const SwiperProducts = () => {
                       className="hover:scale-110"
                     />
                   </div>
-                  <div className="p-6 flex flex-col flex-grow">
+                  <div className="p-3 md:p-4 lg:p-6 flex flex-col flex-grow">
                     <h3
-                      className="text-xl font-semibold mb-3"
+                      className="text-base md:text-lg lg:text-xl font-semibold mb-1 md:mb-2 lg:mb-3 line-clamp-1"
                       style={{ color: themeColors.color2 }}
                     >
                       {product.title}
                     </h3>
-                    <p className="text-gray-300 mb-6  text-sm line-clamp-1">
+                    <p className="text-gray-300 mb-2 md:mb-3 lg:mb-6 text-xs md:text-sm line-clamp-2 md:line-clamp-1">
                       {product.description}
                     </p>
                     <div className="mt-auto flex flex-col gap-2">
                       <span
-                        className="text-2xl font-bold"
+                        className="text-lg md:text-xl lg:text-2xl font-bold"
                         style={{ color: themeColors.color1 }}
                       >
                         ${product.price}
@@ -182,12 +183,12 @@ const SwiperProducts = () => {
                           }
                           text-[#E7F0DC] 
                           w-full
-                          px-3 py-2
+                          px-2 py-1 md:px-3 md:py-1.5 lg:py-2
                           rounded-md 
                           transition-all duration-300 
-                          text-sm
+                          text-xs md:text-sm
                           font-semibold
-                          flex items-center justify-center gap-2
+                          flex items-center justify-center gap-1 md:gap-2
                           transform hover:scale-[1.02] active:scale-[0.98] 
                           hover:shadow-lg`}
                         >
@@ -198,12 +199,12 @@ const SwiperProducts = () => {
                           href={`/products/${product.documentId}`}
                           className="bg-[#3C5A34] hover:bg-[#2D4427] text-[#E7F0DC] 
                           w-full
-                          px-3 py-2
+                          px-2 py-1 md:px-3 md:py-1.5 lg:py-2
                           rounded-md 
                           transition-all duration-300 
-                          text-sm
+                          text-xs md:text-sm
                           font-semibold
-                          flex items-center justify-center gap-2
+                          flex items-center justify-center gap-1 md:gap-2
                           transform hover:scale-[1.02] active:scale-[0.98] 
                           hover:shadow-lg shadow-[#3C5A34]/50 text-center"
                         >
@@ -223,28 +224,28 @@ const SwiperProducts = () => {
       <style jsx global>{`
         .swiper-pagination {
           position: relative;
-          margin-top: 20px;
-          bottom: -10px !important;
+          margin-top: 15px;
+          bottom: -5px !important;
         }
         .swiper-pagination-bullet {
           background-color: #555;
           opacity: 0.6;
-          width: 10px;
-          height: 10px;
-          margin: 0 6px;
+          width: 6px;
+          height: 6px;
+          margin: 0 3px;
         }
         .swiper-pagination-bullet-active {
           background-color: ${themeColors.color1};
           opacity: 1;
-          width: 12px;
-          height: 12px;
+          width: 8px;
+          height: 8px;
         }
         .swiper-button-next,
         .swiper-button-prev {
           color: ${themeColors.color1};
           background-color: rgba(0, 0, 0, 0.3);
-          width: 40px;
-          height: 40px;
+          width: 25px;
+          height: 25px;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -252,12 +253,63 @@ const SwiperProducts = () => {
         }
         .swiper-button-next:after,
         .swiper-button-prev:after {
-          font-size: 18px;
+          font-size: 12px;
+          font-weight: bold;
         }
         .swiper-button-next:hover,
         .swiper-button-prev:hover {
           color: ${themeColors.color2};
           background-color: ${themeColors.color1};
+        }
+        
+        @media (min-width: 768px) {
+          .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            margin: 0 4px;
+          }
+          .swiper-pagination-bullet-active {
+            width: 10px;
+            height: 10px;
+          }
+          .swiper-button-next,
+          .swiper-button-prev {
+            width: 30px;
+            height: 30px;
+          }
+          .swiper-button-next:after,
+          .swiper-button-prev:after {
+            font-size: 14px;
+          }
+        }
+        
+        @media (min-width: 1024px) {
+          .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            margin: 0 6px;
+          }
+          .swiper-pagination-bullet-active {
+            width: 12px;
+            height: 12px;
+          }
+          .swiper-button-next,
+          .swiper-button-prev {
+            width: 40px;
+            height: 40px;
+          }
+          .swiper-button-next:after,
+          .swiper-button-prev:after {
+            font-size: 18px;
+          }
+        }
+        
+        /* Hide navigation arrows on small screens */
+        @media (max-width: 640px) {
+          .swiper-button-next,
+          .swiper-button-prev {
+            display: none;
+          }
         }
       `}</style>
     </div>
