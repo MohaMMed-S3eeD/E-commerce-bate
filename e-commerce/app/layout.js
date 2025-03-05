@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
 
         <html lang="en">
           <body
-            className={`${allertaStencil.variable}  antialiased`}
+            className={`${allertaStencil.variable} dark  antialiased`}
           >
             <NavBar />
 
